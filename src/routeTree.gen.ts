@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as AreasIndexRouteImport } from './routes/areas.index'
+import { Route as AreasAreaIdRouteImport } from './routes/areas.$areaId'
+import { Route as LicoesLessonIdRouteImport } from './routes/licoes.$lessonId'
+import { Route as TrilhasTrackIdRouteImport } from './routes/trilhas.$trackId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AreasIndexRoute = AreasIndexRouteImport.update({
+  id: '/areas/',
+  path: '/areas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AreasAreaIdRoute = AreasAreaIdRouteImport.update({
+  id: '/areas/$areaId',
+  path: '/areas/$areaId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LicoesLessonIdRoute = LicoesLessonIdRouteImport.update({
+  id: '/licoes/$lessonId',
+  path: '/licoes/$lessonId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrilhasTrackIdRoute = TrilhasTrackIdRouteImport.update({
+  id: '/trilhas/$trackId',
+  path: '/trilhas/$trackId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/perfil': typeof PerfilRoute
+  '/areas/$areaId': typeof AreasAreaIdRoute
+  '/licoes/$lessonId': typeof LicoesLessonIdRoute
+  '/trilhas/$trackId': typeof TrilhasTrackIdRoute
+  '/areas/': typeof AreasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/perfil': typeof PerfilRoute
+  '/areas/$areaId': typeof AreasAreaIdRoute
+  '/licoes/$lessonId': typeof LicoesLessonIdRoute
+  '/trilhas/$trackId': typeof TrilhasTrackIdRoute
+  '/areas': typeof AreasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/perfil': typeof PerfilRoute
+  '/areas/$areaId': typeof AreasAreaIdRoute
+  '/licoes/$lessonId': typeof LicoesLessonIdRoute
+  '/trilhas/$trackId': typeof TrilhasTrackIdRoute
+  '/areas/': typeof AreasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/perfil'
+    | '/areas/$areaId'
+    | '/licoes/$lessonId'
+    | '/trilhas/$trackId'
+    | '/areas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/perfil'
+    | '/areas/$areaId'
+    | '/licoes/$lessonId'
+    | '/trilhas/$trackId'
+    | '/areas'
+  id:
+    | '__root__'
+    | '/'
+    | '/perfil'
+    | '/areas/$areaId'
+    | '/licoes/$lessonId'
+    | '/trilhas/$trackId'
+    | '/areas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PerfilRoute: typeof PerfilRoute
+  AreasAreaIdRoute: typeof AreasAreaIdRoute
+  LicoesLessonIdRoute: typeof LicoesLessonIdRoute
+  TrilhasTrackIdRoute: typeof TrilhasTrackIdRoute
+  AreasIndexRoute: typeof AreasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/areas/': {
+      id: '/areas/'
+      path: '/areas'
+      fullPath: '/areas/'
+      preLoaderRoute: typeof AreasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/areas/$areaId': {
+      id: '/areas/$areaId'
+      path: '/areas/$areaId'
+      fullPath: '/areas/$areaId'
+      preLoaderRoute: typeof AreasAreaIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/licoes/$lessonId': {
+      id: '/licoes/$lessonId'
+      path: '/licoes/$lessonId'
+      fullPath: '/licoes/$lessonId'
+      preLoaderRoute: typeof LicoesLessonIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trilhas/$trackId': {
+      id: '/trilhas/$trackId'
+      path: '/trilhas/$trackId'
+      fullPath: '/trilhas/$trackId'
+      preLoaderRoute: typeof TrilhasTrackIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PerfilRoute: PerfilRoute,
+  AreasAreaIdRoute: AreasAreaIdRoute,
+  LicoesLessonIdRoute: LicoesLessonIdRoute,
+  TrilhasTrackIdRoute: TrilhasTrackIdRoute,
+  AreasIndexRoute: AreasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
